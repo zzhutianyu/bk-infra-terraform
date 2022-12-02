@@ -30,7 +30,8 @@ resource "tencentcloud_cam_policy" "main_master" {
     {
     "effect": "allow",
     "action": [
-        "ssm:PutSecretValue"
+        "ssm:PutSecretValue",
+        "ssm:UpdateSecret"
     ],
     "resource": [
         "qcs::ssm:${var.region}:${var.main_account_no}:secret/creatorUin/${var.account_no}/${var.join_config_sm_name}"
