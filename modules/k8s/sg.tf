@@ -11,17 +11,17 @@ resource "tencentcloud_security_group_lite_rule" "control_plane" {
     ,
 
     [
-        "ACCEPT#127.0.0.1/0#ALL#ALL",
+      "ACCEPT#127.0.0.1/0#ALL#ALL",
     ]
   )
   egress = concat(
     var.egress,
 
-  [
+    [
 
 
-    "ACCEPT#127.0.0.1/0#ALL#ALL",
-  ]
+      "ACCEPT#127.0.0.1/0#ALL#ALL",
+    ]
   )
 }
 
@@ -42,13 +42,13 @@ resource "tencentcloud_security_group_lite_rule" "node" {
 }
 
 resource "tencentcloud_security_group" "workers" {
-  for_each             = { for w in var.workers : w.name => w }
+  for_each    = { for w in var.workers : w.name => w }
   name        = "${var.name}-worker-${each.value.name}"
   description = "${var.name}-worker-${each.value.name}"
 }
 
 resource "tencentcloud_security_group_lite_rule" "workers" {
-  for_each             = { for w in var.workers : w.name => w }
+  for_each          = { for w in var.workers : w.name => w }
   security_group_id = tencentcloud_security_group.workers[each.key].id
   ingress = each.value.ingress != null ? each.value.ingress : [
     "ACCEPT#127.0.0.1/0#ALL#ALL",

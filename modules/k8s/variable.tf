@@ -4,7 +4,7 @@ variable "name" {
 }
 
 variable "k8s_sh_url" {
-  type = string
+  type    = string
   default = "https://bkopen-1252002024.file.myqcloud.com/ce7/bcs.sh"
 }
 
@@ -25,23 +25,23 @@ variable "join_config_sm_name" {
 }
 
 variable "join_node_sm_version_id" {
-  type = string
+  type    = string
   default = "node"
 }
 
 variable "join_control_plane_sm_version_id" {
-  type = string
+  type    = string
   default = "master"
 }
 
 variable "ingress" {
-    type = list(string)
-    default = []
+  type    = list(string)
+  default = []
 }
 
 variable "egress" {
-    type = list(string)
-    default = []
+  type    = list(string)
+  default = []
 }
 
 variable "availability_zone" {
@@ -49,23 +49,23 @@ variable "availability_zone" {
 }
 
 variable "image_id" {
-  type = string
+  type    = string
   default = "img-9axl1k53"
 }
 
 variable "instance_type" {
-  type = string
+  type    = string
   default = "S5.MEDIUM2"
 }
 
 variable "data_disk_type" {
-    type = string
-    default = "CLOUD_PREMIUM"
+  type    = string
+  default = "CLOUD_PREMIUM"
 }
 
 variable "data_disk_size" {
-    type = number
-    default = 50
+  type    = number
+  default = 50
 }
 
 variable "vpc_id" {
@@ -86,24 +86,24 @@ variable "tags" {
 
 variable "workers" {
   type = list(object({
-    name = string
-    node_group = string
-    subnet_ids = optional(list(string))
-    image_id = optional(string)
-    instance_type = optional(string)
-    tags = optional(map(string))
+    name           = string
+    node_group     = string
+    subnet_ids     = optional(list(string))
+    image_id       = optional(string)
+    instance_type  = optional(string)
+    tags           = optional(map(string))
     data_disk_type = optional(string)
     data_disk_size = optional(number)
-    ingress = optional(list(string))
-    egress = optional(list(string))
+    ingress        = optional(list(string))
+    egress         = optional(list(string))
     forward_balancer_ids = optional(list(object({
-        listener_id = string
-        load_balancer_id = string
-        target_attribute = list(object({
-            port = number
-            weight = number
-        }))
-        rule_id = optional(string)
+      listener_id      = string
+      load_balancer_id = string
+      target_attribute = list(object({
+        port   = number
+        weight = number
+      }))
+      rule_id = optional(string)
     })))
     load_balancer_ids = optional(list(string))
   }))

@@ -42,9 +42,9 @@ resource "tencentcloud_kubernetes_node_pool" "workers" {
   }
   lifecycle {
     ignore_changes = [
-     desired_capacity ,
-     max_size,
-     min_size
+      desired_capacity,
+      max_size,
+      min_size
     ]
   }
 }

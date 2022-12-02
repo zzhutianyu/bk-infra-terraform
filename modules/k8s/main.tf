@@ -1,28 +1,28 @@
 resource "tencentcloud_instance" "k8s_main_master" {
-  instance_name    = "${var.name}-k8s-main-master"
+  instance_name = "${var.name}-k8s-main-master"
 
   internet_max_bandwidth_out = 2
-  allocate_public_ip = true
-  availability_zone = var.availability_zone
-  vpc_id           = var.vpc_id
-  subnet_id        = var.subnet_ids.0
-  image_id = var.image_id
-  instance_type = var.instance_type
-  system_disk_type = "CLOUD_PREMIUM"
-  system_disk_size = 50
-  key_ids = var.key_ids
+  allocate_public_ip         = true
+  availability_zone          = var.availability_zone
+  vpc_id                     = var.vpc_id
+  subnet_id                  = var.subnet_ids.0
+  image_id                   = var.image_id
+  instance_type              = var.instance_type
+  system_disk_type           = "CLOUD_PREMIUM"
+  system_disk_size           = 50
+  key_ids                    = var.key_ids
 
   cam_role_name = "${var.name}-k8s-main-master"
   orderly_security_groups = [
     tencentcloud_security_group.control_plane.id,
     tencentcloud_security_group.node.id
   ]
-  
+
   data_disks {
-    data_disk_type = var.data_disk_type
-    data_disk_size = var.data_disk_size
+    data_disk_type       = var.data_disk_type
+    data_disk_size       = var.data_disk_size
     delete_with_instance = true
-    encrypt        = false
+    encrypt              = false
   }
 
   user_data = base64encode(templatefile("${path.module}/cloudinit/init-master.sh",
@@ -63,8 +63,8 @@ resource "tencentcloud_as_scaling_config" "control_plane" {
   image_id           = var.image_id
   instance_types     = [var.instance_type]
 
-  system_disk_type   = "CLOUD_PREMIUM"
-  system_disk_size   = "50"
+  system_disk_type = "CLOUD_PREMIUM"
+  system_disk_size = "50"
 
   cam_role_name = "${var.name}-k8s-control-plane"
   security_group_ids = [
@@ -73,20 +73,20 @@ resource "tencentcloud_as_scaling_config" "control_plane" {
   ]
 
   data_disk {
-    disk_type = var.data_disk_type
-    disk_size = var.data_disk_size
+    disk_type            = var.data_disk_type
+    disk_size            = var.data_disk_size
     delete_with_instance = true
   }
 
-  internet_charge_type       = "TRAFFIC_POSTPAID_BY_HOUR"
-  public_ip_assigned         = false
-  key_ids = var.key_ids
+  internet_charge_type = "TRAFFIC_POSTPAID_BY_HOUR"
+  public_ip_assigned   = false
+  key_ids              = var.key_ids
 
-  enhanced_security_service  = false
-  enhanced_monitor_service   = false
-  user_data                  = base64encode(templatefile("${path.module}/cloudinit/new-control-plane.sh", {
-    region                          = var.region
-    sm_name                         = var.join_config_sm_name
+  enhanced_security_service = false
+  enhanced_monitor_service  = false
+  user_data = base64encode(templatefile("${path.module}/cloudinit/new-control-plane.sh", {
+    region     = var.region
+    sm_name    = var.join_config_sm_name
     version_id = var.join_control_plane_sm_version_id
   }))
 

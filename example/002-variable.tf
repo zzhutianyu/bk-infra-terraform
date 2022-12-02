@@ -9,9 +9,9 @@ variable "tags" {
 
 variable "qcloud" {
   type = object({
-    vpc_cidr   = string
-    region     = string
-    account_no = string
+    vpc_cidr        = string
+    region          = string
+    account_no      = string
     main_account_no = string
   })
 }

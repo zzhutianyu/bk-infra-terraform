@@ -1,3 +1,3 @@
 variable "keys" {
-    type = list(string)
+  type = list(string)
 }
