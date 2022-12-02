@@ -39,11 +39,19 @@ variable "ingress" {
   default = []
 }
 
-variable "egress" {
+variable "node_ingress" {
+  type    = list(string)
+  default = []
+}
+variable "node_egress" {
   type    = list(string)
   default = []
 }
 
+variable "egress" {
+  type    = list(string)
+  default = []
+}
 variable "availability_zone" {
   type = string
 }
@@ -61,6 +69,16 @@ variable "instance_type" {
 variable "data_disk_type" {
   type    = string
   default = "CLOUD_PREMIUM"
+}
+
+variable "allocate_public_ip" {
+    type = bool
+    default = false
+}
+
+variable "internet_max_bandwidth_out" {
+    type = number
+    default = 2
 }
 
 variable "data_disk_size" {

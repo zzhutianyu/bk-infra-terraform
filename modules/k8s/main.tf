@@ -1,8 +1,8 @@
 resource "tencentcloud_instance" "k8s_main_master" {
   instance_name = "${var.name}-k8s-main-master"
 
-  internet_max_bandwidth_out = 2
-  allocate_public_ip         = true
+  internet_max_bandwidth_out = var.allocate_public_ip ? var.internet_max_bandwidth_out : null
+  allocate_public_ip         = var.allocate_public_ip
   availability_zone          = var.availability_zone
   vpc_id                     = var.vpc_id
   subnet_id                  = var.subnet_ids.0
@@ -79,7 +79,9 @@ resource "tencentcloud_as_scaling_config" "control_plane" {
   }
 
   internet_charge_type = "TRAFFIC_POSTPAID_BY_HOUR"
-  public_ip_assigned   = false
+  
+  internet_max_bandwidth_out = var.allocate_public_ip ? var.internet_max_bandwidth_out : null
+  public_ip_assigned         = var.allocate_public_ip
   key_ids              = var.key_ids
 
   enhanced_security_service = false

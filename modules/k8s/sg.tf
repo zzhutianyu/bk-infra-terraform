@@ -32,13 +32,13 @@ resource "tencentcloud_security_group" "node" {
 
 resource "tencentcloud_security_group_lite_rule" "node" {
   security_group_id = tencentcloud_security_group.node.id
-  ingress = [
+  ingress = concat([
     "ACCEPT#${tencentcloud_security_group.node.id}#ALL#ALL",
-  ]
-  egress = [
+  ], var.node_ingress)
+  egress = concat([
     "ACCEPT#${tencentcloud_security_group.node.id}#ALL#ALL",
     "ACCEPT#0.0.0.0/0#ALL#ALL",
-  ]
+  ], var.node_egress)
 }
 
 resource "tencentcloud_security_group" "workers" {

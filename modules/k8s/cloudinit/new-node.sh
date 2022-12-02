@@ -16,12 +16,7 @@ tccli ssm GetSecretValue --cli-unfold-argument --region ${region} --SecretName $
 
 chmod +x /tmp/join.sh
 
-export K8S_EXTRA_ARGS="$(cat <<EOF
-allowed-unsafe-sysctls: 'net.ipv4.tcp_tw_reuse'
-node-labels: 'group=${group}'
-EOF
-)" 
-
+export K8S_EXTRA_ARGS="node-labels: 'group=${group}'" 
 . /tmp/join.sh
 
 rm -rf /tmp/join.sh
