@@ -16,6 +16,15 @@ variable "qcloud" {
   })
 }
 
+# 中控机配置
+variable "ctrl" {
+  type = object({
+    image_id = string
+    instance_type = string
+    data_disk_type = string
+    data_disk_size = number
+  })
+}
 variable "key_ids" {
   type = list(string)
 }

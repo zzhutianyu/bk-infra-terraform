@@ -4,6 +4,12 @@ tags = {
   "poc" : "poc"
 }
 
+ctrl = {
+  image_id = "img-9axl1k53"
+  instance_type = "S5.MEDIUM2"
+
+}
+
 qcloud = {
   env      = "example"
   vpc_cidr = "172.16.0.0/20"
@@ -18,6 +24,9 @@ az_id = ["ap-guangzhou-3", "ap-guangzhou-4"]
 # 用于登录机器的腾讯云 keyid 
 key_ids = []
 
+
+# 必须配置公开子网 否则 private无法连接internet
+# 该网段部署承载外部流量的应用以及出口
 subnet_public = [
   {
     az_id = "ap-guangzhou-3"
@@ -26,6 +35,7 @@ subnet_public = [
   },
 ]
 
+# 应用部署网段
 subnet_private = [
   {
     az_id = "ap-guangzhou-3"

@@ -24,7 +24,8 @@ module "k8s" {
   ]
 
   ingress = [
-    "ACCEPT#0.0.0.0/0#22#TCP",
+    # 只允许中控机访问控制面
+    "ACCEPT#${tencentcloud_security_group.ctrl.id}#ALL#ALL"
   ]
   tags = {}
 }
