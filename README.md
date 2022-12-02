@@ -2,8 +2,13 @@
 # BK infra terraform
 > 只支持腾讯云 其他云厂商TODO
 蓝鲸容器版本基础资源terraform仓库
-
 本仓库支持蓝鲸容器版本基础资源初始化以及维护.
+蓝鲸能够支持海量业务的运行和稳定,但是蓝鲸本身也需要维护和建设,本仓库设计和实现了一套基于terrafrom的基础资源管理蓝鲸的方式，使得蓝鲸在公有云上能够便捷的配置以及管理资源
+
+# TODO
+- 完善`LB`module
+- argocd 维护蓝鲸容器化helmfile配置(待POC)
+- 其他
 
 ![relation](./image/relation.png)
 
