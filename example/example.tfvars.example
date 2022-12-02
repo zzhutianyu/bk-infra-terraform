@@ -1,0 +1,43 @@
+name = "exmaple"
+
+tags = {
+  "poc" : "poc"
+}
+
+qcloud = {
+  env      = "example"
+  vpc_cidr = "172.16.0.0/20"
+  region   = "ap-guangzhou"
+  account_no = ""
+  main_account_no = ""
+}
+
+# demo
+az_id = ["ap-guangzhou-3", "ap-guangzhou-4"]
+
+# 用于登录机器的腾讯云 keyid 
+key_ids = []
+
+subnet_public = [
+  {
+    az_id = "ap-guangzhou-3"
+    cidr  = "172.16.0.0/24"
+    name  = "public-a",
+  },
+]
+
+subnet_private = [
+  {
+    az_id = "ap-guangzhou-3"
+    cidr  = "172.16.1.0/24"
+    name  = "private-a",
+  },
+  {
+    az_id = "ap-guangzhou-4"
+    cidr  = "172.16.2.0/24"
+    name  = "private-v",
+  }
+]
+
+# Plz setup If you want to use TKE
+subnet_private_container = []
