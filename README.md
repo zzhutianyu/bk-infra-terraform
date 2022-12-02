@@ -5,7 +5,12 @@
 
 本仓库支持蓝鲸容器版本基础资源初始化以及维护.
 
-# 中控机
+![relation](./image/relation.png)
+
+# 目标
+- gitops
+- infra as code
+- 变更可见
 
 # 云基础网络配置管理
 - 公共子网
@@ -31,3 +36,12 @@ K8S module 按照蓝鲸文档进行建立，可以自动申请master机器并自
 - 集群初始化申请
 - 节点池管理
     - 分组管理
+
+# 工作流 change flow
+- create new banrch
+- update code
+- create new PR
+- terraform plan
+- review
+- apply plan after approve
+- merge
