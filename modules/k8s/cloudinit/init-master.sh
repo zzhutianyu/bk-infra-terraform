@@ -31,4 +31,4 @@ rm -rf /tmp/k8s_output
 EOF
 
 # add crontab to update token
-crontab -l | { cat; echo "0 */12 * * * sh /root/.bcs/update-token.sh 2>&1 >> /var/log/bcs-update-token.log"; } | crontab -
+crontab -l | { cat; echo "0 */12 * * * sh /root/.bcs/update-token.sh >> /var/log/bcs-update-token.log 2>&1"; } | crontab -
