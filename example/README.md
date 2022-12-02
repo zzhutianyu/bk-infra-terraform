@@ -133,6 +133,7 @@ To perform exactly these actions, run the following command to apply:
 
 terraform apply "action.tfplan"
 ```
+
 ```cmd
 terraform apply "action.tfplan"
 module.vpc.tencentcloud_eip.this[0]: Creating...
@@ -165,7 +166,7 @@ Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
 ···
 
 # 初始化私有网络
-```
+```hcl
 terraform plan -var-file poc.tfvars -out=action.tfplan -target 'module.private'
 module.vpc.tencentcloud_eip.this[0]: Refreshing state... [id=eip-g3i3npba]
 module.vpc.tencentcloud_vpc.this: Refreshing state... [id=vpc-3tlkcnxh]
