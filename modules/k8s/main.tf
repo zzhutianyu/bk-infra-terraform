@@ -13,10 +13,10 @@ resource "tencentcloud_instance" "k8s_main_master" {
   key_ids                    = var.key_ids
 
   cam_role_name = "${var.name}-k8s-main-master"
-  orderly_security_groups = [
+  orderly_security_groups = concat([
     tencentcloud_security_group.control_plane.id,
     tencentcloud_security_group.node.id
-  ]
+  ], var.security_group_ids)
 
   data_disks {
     data_disk_type       = var.data_disk_type
@@ -56,6 +56,13 @@ resource "tencentcloud_as_scaling_group" "control_plane" {
   termination_policies = ["NEWEST_INSTANCE"]
   retry_policy         = "INCREMENTAL_INTERVALS"
 
+  lifecycle {
+    ignore_changes = [
+      max_size,
+      min_size,
+      desired_capacity
+    ]
+  }
 }
 
 resource "tencentcloud_as_scaling_config" "control_plane" {
@@ -67,10 +74,10 @@ resource "tencentcloud_as_scaling_config" "control_plane" {
   system_disk_size = "50"
 
   cam_role_name = "${var.name}-k8s-control-plane"
-  security_group_ids = [
+  security_group_ids = concat([
     tencentcloud_security_group.control_plane.id,
     tencentcloud_security_group.node.id
-  ]
+  ], var.security_group_ids)
 
   data_disk {
     disk_type            = var.data_disk_type
@@ -79,7 +86,7 @@ resource "tencentcloud_as_scaling_config" "control_plane" {
   }
 
   internet_charge_type = "TRAFFIC_POSTPAID_BY_HOUR"
-  
+
   internet_max_bandwidth_out = var.allocate_public_ip ? var.internet_max_bandwidth_out : null
   public_ip_assigned         = var.allocate_public_ip
   key_ids              = var.key_ids

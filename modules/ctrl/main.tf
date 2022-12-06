@@ -15,9 +15,9 @@ resource "tencentcloud_instance" "ctrl" {
   key_ids                    = var.key_ids
 
   cam_role_name = "${var.name}-ctrl"
-  orderly_security_groups = [
+  orderly_security_groups = concat([
     tencentcloud_security_group.ctrl.id,
-  ]
+  ], var.security_group_ids)
 
   data_disks {
     data_disk_type       = var.data_disk_type

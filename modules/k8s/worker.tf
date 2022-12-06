@@ -13,7 +13,7 @@ resource "tencentcloud_as_scaling_group" "workers" {
   retry_policy         = "INCREMENTAL_INTERVALS"
 
   dynamic "forward_balancer_ids" {
-    for_each = { for forward_balancer_id in each.value.forward_balancer_ids != null ? each.value.forward_balancer_ids : [] : forward_balancer_id.load_balancer_id => forward_balancer_id }
+    for_each = { for forward_balancer_id in each.value.forward_balancer_ids != null ? each.value.forward_balancer_ids : [] : "${forward_balancer_id.load_balancer_id}-${forward_balancer_id.listener_id}" => forward_balancer_id }
     content {
       listener_id      = forward_balancer_ids.value.listener_id
       load_balancer_id = forward_balancer_ids.value.load_balancer_id
@@ -31,6 +31,13 @@ resource "tencentcloud_as_scaling_group" "workers" {
   }
   load_balancer_ids = each.value.load_balancer_ids
 
+  lifecycle {
+    ignore_changes = [
+      max_size,
+      min_size,
+      desired_capacity
+    ]
+  }
 
 }
 
@@ -52,10 +59,10 @@ resource "tencentcloud_as_scaling_config" "workers" {
 
   internet_charge_type = "TRAFFIC_POSTPAID_BY_HOUR"
 
-  security_group_ids = [
+  security_group_ids = concat([
     tencentcloud_security_group.node.id,
     tencentcloud_security_group.workers[each.key].id
-  ]
+  ], var.security_group_ids)
 
   public_ip_assigned = false
   key_ids            = var.key_ids
@@ -67,6 +74,7 @@ resource "tencentcloud_as_scaling_config" "workers" {
     sm_name    = var.join_config_sm_name
     version_id = var.join_node_sm_version_id
     group      = each.value.node_group
+    dedicated = each.value.dedicated != null ? "true" : ""
   }))
 
   instance_tags = each.value.tags

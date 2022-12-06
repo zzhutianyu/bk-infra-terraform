@@ -1,3 +1,4 @@
+# 普通k8s集群
 module "k8s" {
   source              = "../modules/k8s"
   name                = "${var.name}-k8s"
@@ -11,16 +12,11 @@ module "k8s" {
   main_account_no     = var.qcloud.main_account_no
   region              = var.qcloud.region
   workers = [
-    # saas节点使用
+    # general节点使用
     {
-      name       = "saas"
-      node_group = "saas"
+      name       = "general"
+      node_group = "general"
     },
-    # 公共节点
-    {
-      name       = "public"
-      node_group = "public"
-    }
   ]
 
   ingress = [

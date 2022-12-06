@@ -19,7 +19,7 @@ variable "data_disk_type" {
 
 variable "data_disk_size" {
   type    = number
-  default = 50
+  default = 100
 }
 
 variable "availability_zone" {
@@ -56,4 +56,10 @@ variable "ingress" {
 variable "egress" {
     type = list(string)
     default = []
+}
+
+variable "security_group_ids" {
+    type = list(string)
+    default = []
+  
 }

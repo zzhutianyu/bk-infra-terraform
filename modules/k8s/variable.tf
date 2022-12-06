@@ -114,6 +114,7 @@ variable "workers" {
     data_disk_size = optional(number)
     ingress        = optional(list(string))
     egress         = optional(list(string))
+    dedicated = optional(bool)
     forward_balancer_ids = optional(list(object({
       listener_id      = string
       load_balancer_id = string
@@ -125,4 +126,10 @@ variable "workers" {
     })))
     load_balancer_ids = optional(list(string))
   }))
+}
+
+
+variable "security_group_ids" {
+    type = list(string)
+    default = []
 }

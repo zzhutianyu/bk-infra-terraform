@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# mount disk
+mkfs -t ext4 /dev/vdb
+mkdir /data
+mount /dev/vdb /data
+
 # follow https://bk.tencent.com/docs/document/7.0/172/29311
 
 export HOME="/root"
